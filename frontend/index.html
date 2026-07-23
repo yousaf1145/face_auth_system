@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENTRY — Biometric Access Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-name">SENTRY</span>
+    <span class="brand-sub">Biometric Access Terminal</span>
+  </div>
+  <div class="steps" id="stepIndicator">
+    <div class="step active" data-step="1"><span class="step-num">01</span><span class="step-label">Identify</span></div>
+    <div class="step" data-step="2"><span class="step-num">02</span><span class="step-label">Verify Liveness</span></div>
+    <div class="step" data-step="3"><span class="step-num">03</span><span class="step-label">Access</span></div>
+  </div>
+</header>
+
+<main class="stage">
+
+  <!-- STEP 1 : ENTRY -->
+  <section class="panel active" id="panel-1">
+    <div class="panel-inner">
+      <p class="eyebrow">Terminal Ready</p>
+      <h1>Face Recognition<br>Access Control</h1>
+      <p class="lede">Position yourself in front of the camera. The terminal will detect
+      your face, confirm you are physically present — not a photo, phone screen, or
+      recording — then match your identity against enrolled personnel.</p>
+      <button class="btn btn-primary" id="btnRecognize">
+        <span>Recognize</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="hint">Requires camera access. All processing runs on this device.</div>
+    </div>
+  </section>
+
+  <!-- STEP 2 : LIVE DETECTION -->
+  <section class="panel" id="panel-2">
+    <div class="panel-inner viewport-layout">
+      <div class="viewport-col">
+        <div class="viewfinder" id="viewfinder">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="captureCanvas" hidden></canvas>
+          <div class="bracket bracket-tl"></div>
+          <div class="bracket bracket-tr"></div>
+          <div class="bracket bracket-bl"></div>
+          <div class="bracket bracket-br"></div>
+          <div class="scan-sweep" id="scanSweep"></div>
+          <div class="viewport-status" id="viewportStatus">Initializing camera…</div>
+        </div>
+        <button class="btn btn-primary" id="btnStartLiveness">
+          <span>Start Liveness Check</span>
+        </button>
+      </div>
+      <aside class="telemetry" id="telemetry">
+        <p class="telemetry-title">Live Telemetry</p>
+        <div class="tele-row"><span class="tele-key">Real</span><div class="tele-bar"><div class="tele-fill tele-fill--real" id="fillReal"></div></div><span class="tele-val" id="valReal">—</span></div>
+        <div class="tele-row"><span class="tele-key">Spoof</span><div class="tele-bar"><div class="tele-fill tele-fill--spoof" id="fillSpoof"></div></div><span class="tele-val" id="valSpoof">—</span></div>
+        <div class="tele-row"><span class="tele-key">Motion Flow</span><div class="tele-bar"><div class="tele-fill tele-fill--flow" id="fillFlow"></div></div><span class="tele-val" id="valFlow">—</span></div>
+        <div class="tele-row"><span class="tele-key">Combined</span><div class="tele-bar"><div class="tele-fill tele-fill--combined" id="fillCombined"></div></div><span class="tele-val" id="valCombined">—</span></div>
+        <p class="telemetry-status" id="telemetryStatus">Awaiting scan…</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- STEP 3 : RESULT -->
+  <section class="panel" id="panel-3">
+    <div class="panel-inner result-layout">
+      <div class="result-icon" id="resultIcon">◈</div>
+      <h1 id="resultTitle">Access Result</h1>
+      <p class="lede" id="resultMessage">—</p>
+      <div class="result-actions" id="resultActions"></div>
+      <button class="btn btn-ghost" id="btnRestart">Start Over</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- POPUP: Unknown / Spoof -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div class="modal-icon" id="modalIcon">⚠</div>
+    <h2 id="modalTitle">Alert</h2>
+    <p id="modalMessage"></p>
+    <button class="btn btn-primary" id="modalClose">Dismiss</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

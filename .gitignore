@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+dataset/
+logs/*.log
+backend/models/reference_embeddings.npy
+backend/models/reference_labels.pkl
+.DS_Store
