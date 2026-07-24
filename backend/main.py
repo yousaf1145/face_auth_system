@@ -82,6 +82,16 @@ def create_app() -> Flask:
     return app
 
 
+import os
+
 if __name__ == "__main__":
-    LOGGER.info("Starting Face Auth server on %s:%d", CONFIG.server.host, CONFIG.server.port)
-    app.run(host=CONFIG.server.host, port=CONFIG.server.port, debug=CONFIG.server.debug, threaded=True)
+    port = int(os.environ.get("PORT", CONFIG.server.port))
+
+    LOGGER.info("Starting Face Auth server on 0.0.0.0:%d", port)
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=CONFIG.server.debug,
+        threaded=True,
+    )
