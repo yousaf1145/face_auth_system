@@ -91,7 +91,7 @@ class CameraConfig:
 
 @dataclass(frozen=True)
 class ServerConfig:
-    host: str = "127.0.0.1"
+    host: str = "0.0.0.0"
     port: int = 8001
     debug: bool = False
     max_content_length_mb: int = 8

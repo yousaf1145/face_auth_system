@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual Environment
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# VS Code
+.vscode/
+
+# Environment
+.env
+
+# Generated Files
+backend/models/reference_embeddings.npy
+backend/models/reference_labels.pkl
+
+# OS
+.DS_Store
